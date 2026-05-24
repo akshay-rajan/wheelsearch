@@ -1,9 +1,18 @@
 <div class="search-container flex gap-2 justify-center items-center w-full" [class.min-h-96]="!isTyping">
-    <input 
-        type="text" 
-        placeholder="Start typing..." 
-        class="border border-gray-300 rounded-lg p-2 w-1/2"
-        (keydown)="onFocus()" (focus)="onFocus()" (blur)="onBlur()" (input)="onInput()"
-        [formControl]="query"
-    />
+  <input type="text" placeholder="Start typing..." class="border border-gray-300 rounded-lg p-2 w-1/2"
+    (keydown)="onFocus()" (focus)="onFocus()" (blur)="onBlur()" (input)="onInput()" [formControl]="query" />
+</div>
+<div class="results-container">
+  @for (result of searchService.results(); track result._id) {
+  <div class="motorcycle-item">
+    <h3>{{ result._source?.brand }} {{ result._source?.model }} ({{ result._source?.year }})</h3>
+    <p>Category: {{ result._source?.category }} | Rating: {{ result._source?.rating }}</p>
+    <p>Power: {{ result._source?.power_hp }} HP | Engine: {{ result._source?.engine_cylinder }} ({{
+      result._source?.engine_stroke }})</p>
+    <p>Cooling: {{ result._source?.cooling_system }} | Transmission: {{ result._source?.transmission_type }} | Weight:
+      {{ result._source?.dry_weight_kg }} kg</p>
+    <p>Brakes: Front - {{ result._source?.front_brakes }} / Rear - {{ result._source?.rear_brakes }}</p>
+    <small>Score: {{ result._score }}</small>
+  </div>
+  }
 </div>

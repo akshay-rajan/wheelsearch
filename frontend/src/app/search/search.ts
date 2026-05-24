@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SearchService } from '../services/search';
 
 @Component({
   selector: 'app-search',
@@ -10,14 +11,15 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 export class Search {
   isTyping = false;
   query = new FormControl("");
-  results : any[] = []; // ToDo
+
+  searchService = inject(SearchService);
 
   onFocus() {
     this.isTyping = true;
   }
 
   onBlur() {
-    if (document.hasFocus() && this.results.length === 0) {
+    if (document.hasFocus() && this.searchService.results().length === 0) {
       this.isTyping = false;
     }
   }
@@ -26,6 +28,10 @@ export class Search {
     const value = this.query.value?.trim();
     if (value) {
       console.log(`typing ${this.query.value}`);
+      this.searchService.search(value);
+      console.log(this.searchService.results());
+    } else {
+      this.searchService.results.set([]);
     }
   }
 }
