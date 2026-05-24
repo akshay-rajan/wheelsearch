@@ -1,0 +1,9 @@
+<div class="flex gap-2 justify-center items-center w-full" [class.min-h-96]="!isTyping">
+    <input 
+        type="text" 
+        placeholder="Start typing..." 
+        class="border border-gray-300 rounded-lg p-2 w-1/2"
+        (keydown)="onFocus()" (focus)="onFocus()" (blur)="onBlur()" (input)="onInput()"
+        [formControl]="query"
+    />
+</div>
