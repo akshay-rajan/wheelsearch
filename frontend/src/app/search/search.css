@@ -1,0 +1,8 @@
+.search-container {
+    transition: min-height 0.4s ease-in-out;
+    min-height: 4rem;
+    
+    &.min-h-96 {
+        min-height: 24rem;
+    }
+}

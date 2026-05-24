@@ -17,7 +17,7 @@ export class Search {
   }
 
   onBlur() {
-    if (this.results.length === 0) {
+    if (document.hasFocus() && this.results.length === 0) {
       this.isTyping = false;
     }
   }
